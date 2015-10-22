@@ -2,9 +2,6 @@
     "js": [
         "js/main.js"
     ],
-    "css": [
-        "css/main.css"
-    ],
     "default_options": {
         "GeocodedAddressFields": [
 			{"name": "display", "mapping": "@display_name"},
