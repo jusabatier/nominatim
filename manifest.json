@@ -1,0 +1,36 @@
+{
+    "js": [
+        "js/main.js"
+    ],
+    "css": [
+        "css/main.css"
+    ],
+    "default_options": {
+        "GeocodedAddressFields": [
+			{"name": "display", "mapping": "@display_name"},
+			{"name": "accuracy", "mapping": "@importance"},
+			{"name": "geometry", "mapping": "@geotext"}
+		],
+		"comboTemplate": "{display}",
+        "sortField": "accuracy",
+        "minAccuracy": 0.5
+    },
+    "i18n": {
+        "en": {
+            "nominatim.window_title": "Nominatim search (OSM)",
+            "nominatim.field_emptytext": "Search terms"
+        },
+        "es": {
+            "nominatim.window_title": "Buscar a través Nominatim (OSM)",
+            "nominatim.field_emptytext": "Términos de búsqueda"
+        },
+        "fr": {
+            "nominatim.window_title": "Recherche via Nominatim (OSM)",
+            "nominatim.field_emptytext": "Termes de recherche"
+        },
+        "de": {
+            "nominatim.window_title": "Suche über Nominatim (OSM)",
+            "nominatim.field_emptytext": "Suchbegriffe"
+        }
+    }
+}
