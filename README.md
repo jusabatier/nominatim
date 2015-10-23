@@ -8,6 +8,12 @@ The addon config should look like this:
     {
 		"id": "nominatim_0",
 		"name": "Nominatim",
+		"tip": {             // [mandatory] tooltip displayed on field hover
+                	"fr": "<b>Recherche d'une adresse ou etablissement via OpenStreetMap</b><br/>Liste des restaurants : <b>'restaurants'</b><br/>Liste des hotels : <b>'hotels'</b><br/>Liste des bars : <b>'bars'</b>",
+                	"en": "...",
+                	"es": "...",
+                	"de": "..."
+            },
 		"title": {
 			"en": "Nominatim search (OSM)",
 			"es": "Buscar a través Nominatim (OSM)",
