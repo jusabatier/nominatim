@@ -22,17 +22,9 @@ GEOR.Addons.Nominatim = Ext.extend(GEOR.Addons.Base, {
 		
         this._format = new OpenLayers.Format.GeoJSON();
         this.layer = new OpenLayers.Layer.Vector("__georchestra_nominatim", {
-            displayInLayerSwitcher: false,
-            styleMap: new OpenLayers.StyleMap({
-                "default": {
-                    graphicName: "cross",
-                    pointRadius: 16,
-                    strokeColor: "fuchsia",
-                    strokeWidth: 2,
-                    fillOpacity: 0
-                }
-            })
+            displayInLayerSwitcher: false
         });
+        this.map.addLayer(this.layer);
         this.addressField = this._createCbSearch();
 
 		// create a button to be inserted in toolbar:
@@ -146,23 +138,29 @@ GEOR.Addons.Nominatim = Ext.extend(GEOR.Addons.Base, {
 		});
     },
 	
-	_onComboSelect: function(combo, record) {
+    _onComboSelect: function(combo, record) {
         this.layer.destroyFeatures();
         this.popup && this.popup.destroy();
-        var bbox, geom, feature,
+        var bbox, srcFeature, destGeom, destFeature,
             from = new OpenLayers.Projection("EPSG:4326"),
-            to = this.map.getProjectionObject();
+            to = new OpenLayers.Projection(this.map.getProjection());
 
         if (!record.get("geometry")) {
             return;
         }
-		geom = OpenLayers.Geometry.fromWKT(record.get("geometry"));
-        geom = geom.transform(from, to);
-        feature = new OpenLayers.Feature.Vector(geom);
-        this.map.setCenter(feature.geometry.getBounds().getCenterLonLat());
-        this.layer.addFeatures([feature]);
+	
+	srcFeature = new OpenLayers.Format.WKT().read(record.get("geometry"));
+	destGeom = srcFeature.geometry.transform(from,to);
+	destFeature = new OpenLayers.Feature.Vector(destGeom);
+	
+	this.map.zoomToExtent(destGeom.getBounds());
+	if( this.map.getZoomForExtent(destGeom.getBounds()) > 22 )
+		this.map.zoomTo(22);
+	
+	this.layer.addFeatures([destFeature]);
+	
         this.popup = new GeoExt.Popup({
-            location: feature,
+            location: destFeature,
             width: 300,
             map: this.map,
             html: new Ext.XTemplate(
