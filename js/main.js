@@ -1,3 +1,7 @@
+/*
+ * @include OpenLayers/Format/WKT.js
+*/
+
 Ext.namespace("GEOR.Addons");
 
 GEOR.Addons.Nominatim = Ext.extend(GEOR.Addons.Base, {
@@ -125,13 +129,6 @@ GEOR.Addons.Nominatim = Ext.extend(GEOR.Addons.Base, {
 			pageSize: 0,                         // removes paging toolbar
 			autoScroll: true,
 			listeners: {
-				"render": function(c) {
-                    			new Ext.ToolTip({
-                        		target: c.getEl(),
-                        		trackMouse: true,
-                        		html: this.options.tip[this.lang]
-                    		});
-                	},
 				"select": this._onComboSelect,
 				scope: this
 			}
